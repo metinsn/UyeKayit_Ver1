@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "AddType";
+}
+
+<h2>Üye Tipi Ekle</h2>
+
+<form method="post">
+    <input class="form-control" type="text" placeholder="Üye Tipi İsmi" name="Name" required /><br />
+    <input class="btn btn-primary" type="submit" value="Kaydet" />
+</form>
+<br />
+@{
+    if (ViewBag.MessageTrue != null)
+    {
+        <div class="alert alert-success alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>@ViewBag.MessageTrue</strong>
+        </div>
+    }
+
+    if (ViewBag.MessageFalse != null)
+    {
+        <div class="alert alert-danger alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>@ViewBag.MessageFalse</strong>
+        </div>
+    }
+}
+
+

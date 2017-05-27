@@ -1,0 +1,46 @@
+﻿@model List<UyeKayit_Ver1.Entity.ViewModels.PersonVM>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tüm Üyeler</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th><a href="/Home/Sort/1">Ad</a></th>
+            <th><a href="/Home/Sort/2">Soyad</a></th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th><a href="/Home/Sort/3">Üye Tipi</a></th>
+            @{
+                if (Session["Id"] != null)
+                {
+                    <th>İşlemler</th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Fname</td>
+                    <td>@item.Lname</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                    <td>@item.PersonTypeName</td>
+                    @{
+                        if (Session["Id"] != null)
+                        {
+                            <td>
+                                <a href="/Home/Delete/@item.Id" class="btn btn-danger btn-block">Sil</a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+

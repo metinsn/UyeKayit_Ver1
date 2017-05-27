@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üye Kayit Ver.1</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <style>
+        .modal-dialog {
+            width: 300px;
+        }
+
+        .modal-footer {
+            height: 70px;
+            margin: 0;
+        }
+
+            .modal-footer .btn {
+                font-weight: bold;
+            }
+
+            .modal-footer .progress {
+                display: none;
+                height: 32px;
+                margin: 0;
+            }
+
+        .input-group-addon {
+            color: #fff;
+            background: #3276B1;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index/">Üye Kayit Ver.1</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @{
+                        if (Session["Id"] != null)
+                        {
+                            <li>
+                                <a href="/Home/Add/">Üye Ekle</a>
+                            </li>
+                            <li>
+                                <a href="/Home/AddType/">Üye Tipi Ekle</a>
+                            </li>
+                        }
+                    }
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Üye Tipleri<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @{
+                                var list = UyeKayit_Ver1.DAL.Repositories.PersonTypeRepo.GetAll();
+                                foreach (var item in list)
+                                {
+                                    <li>
+                                        
+                                        <a href="/Home/Index/@item.Id"><span class="glyphicon glyphicon-user"></span> @item.Name 
+                                        <span class="label label-success">
+                                            @UyeKayit_Ver1.DAL.Repositories.PersonRepo.PersonCount(item.Id)
+                                        </span>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                </ul>
+                @{
+                    if (Session["Id"] != null)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/Home/Logout"><span class="glyphicon glyphicon-log-out"></span> Çıkış Yap</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Giriş Yap</a></li>
+                        </ul>
+                    }
+                }
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Giriş Yap</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/Home/Login">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="NickName" placeholder="Kullanıcı Adı">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="Password" placeholder="Şifre">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="form-control btn btn-primary btn-block" type="submit">Giriş</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Üye Kayit Ver.1</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

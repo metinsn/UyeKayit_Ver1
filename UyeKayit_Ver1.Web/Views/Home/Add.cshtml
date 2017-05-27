@@ -1,0 +1,21 @@
+﻿@model List<UyeKayit_Ver1.Entity.Models.PersonType>
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Üye Ekle</h2>
+
+<form method="post">
+    <input class="form-control" type="text" placeholder="Üye İsim" name="Fname" required /><br />
+    <input class="form-control" type="text" placeholder="Üye Soyisim" name="Lname" required /><br />
+    <input class="form-control" type="email" placeholder="Üye Email" name="Email" required /><br />
+    <input class="form-control" type="number" placeholder="Üye Telefon" name="Phone" required /><br />
+    <select class="form-control" name="PersonTypeId">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select><br />
+    <input class="btn btn-primary" type="submit" value="Kaydet"/>
+</form>
+
